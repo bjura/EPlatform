@@ -4,18 +4,18 @@
 
 # This file is part of AT-Platform.
 #
-# AT-Platform is free software: you can redistribute it and/or modify
+# EPlatform is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# AT-Platform is distributed in the hope that it will be useful,
+# EPlatform is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with AT-Platform. If not, see <http://www.gnu.org/licenses/>.
+# along with EPlatform. If not, see <http://www.gnu.org/licenses/>.
 
 
 import wxversion
@@ -49,10 +49,9 @@ class check(wx.Frame):
                 self.subSizer2 = wx.GridSizer( 1, 1,0,0)
                 mixer.init()
                 
-                with open( './.pathToATPlatform' ,'r' ) as textFile:
-			self.pathToATPlatform = textFile.readline( )
+                self.pathToEPlatform = './'
 		    
-		with open( self.pathToATPlatform + 'parametersCW', 'r' ) as parametersFile:
+		with open( self.pathToEPlatform + 'parametersCW', 'r' ) as parametersFile:
 			for line in parametersFile:
                                 
 				if line[ :line.find('=')-1 ] == 'checkTime':
@@ -83,7 +82,7 @@ class check(wx.Frame):
                                 kolor='dark slate blue'
                                 self.app=False
                                 self.oklaski=True
-                                i=wx.BitmapFromImage( wx.ImageFromStream( open(self.pathToATPlatform+'/multimedia/cwiczenia/icons/thumbup.png', "rb")))
+                                i=wx.BitmapFromImage( wx.ImageFromStream( open(self.pathToEPlatform+'/multimedia/icons/thumbup.png', "rb")))
                                 be = bt.GenBitmapButton( self.parent, -1, bitmap=i)
                                 be.SetBackgroundColour('white')
                                 self.parent.mouseCursor.move( self.parent.winWidth - 12, self.parent.winHeight - 12 )
@@ -94,7 +93,7 @@ class check(wx.Frame):
                                 kolor=self.colorGrat
                                 self.app=True
                                 self.oklaski=True
-                                i=wx.BitmapFromImage( wx.ImageFromStream( open(self.pathToATPlatform+'/multimedia/cwiczenia/icons/thumbup.png', "rb")))
+                                i=wx.BitmapFromImage( wx.ImageFromStream( open(self.pathToEPlatform+'/multimedia/icons/thumbup.png', "rb")))
                                 be = bt.GenBitmapButton( self.parent, -1, bitmap=i)
                                 be.SetBackgroundColour('white')
                         
@@ -104,7 +103,7 @@ class check(wx.Frame):
 			self.parent.PicNr-=1
 			self.app=True
 			self.oklaski=False
-			i=wx.BitmapFromImage( wx.ImageFromStream( open(self.pathToATPlatform+'/multimedia/cwiczenia/icons/sad.png', "rb")))
+			i=wx.BitmapFromImage( wx.ImageFromStream( open(self.pathToEPlatform+'/multimedia/icons/sad.png', "rb")))
                         be = bt.GenBitmapButton( self.parent, -1, bitmap=i)
                         be.SetBackgroundColour( 'white')
 		b = bt.GenButton( self.parent, -1, text)
@@ -122,19 +121,10 @@ class check(wx.Frame):
 		if self.app:
                         self.parent.stoper3.Start(self.checkTime)
 		if self.oklaski:
-                        mixer.music.load(self.pathToATPlatform+'multimedia/cwiczenia/oklaski.ogg')
+                        mixer.music.load(self.pathToEPlatform+'multimedia/oklaski.ogg')
                         mixer.music.play()
                 self.ileklik=0
-
                 
-                #self.parent.mainSizer.Hide(0)
-                #self.parent.mainSizer.Hide(1)
-                #self.dc=wx.PaintDC(self.parent)
-                #self.dc.SetFont(wx.NORMAL_FONT)
-                #self.dc.DrawText('brawo',10, 20)
-                #self.dc.SetBrush(wx.RED_BRUSH)
-                #self.dc.DrawRectangle(40, 40, 16, 16)
-
 
         def reward(self,event):
                 self.parent.mainSizer.Clear(deleteWindows=True)
@@ -148,7 +138,7 @@ class check(wx.Frame):
                 self.parent.mainSizer.Add(self.subSizer,proportion=1,flag=wx.EXPAND)
                 self.parent.SetSizer( self.parent.mainSizer )
                 self.parent.Layout()
-                path=self.pathToATPlatform+'multimedia/cwiczenia/rewards/'
+                path=self.pathToEPlatform+'multimedia/rewards/'
                 song=os.listdir(path)[np.random.randint(0,len(os.listdir(path)),1)]
                 mixer.music.stop()
                 mixer.music.load(path+song)

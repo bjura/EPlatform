@@ -3,18 +3,18 @@
 
 # This file is part of AT-Platform.
 #
-# AT-Platform is free software: you can redistribute it and/or modify
+# EPlatform is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# AT-Platform is distributed in the hope that it will be useful,
+# EPlatform is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with AT-Platform. If not, see <http://www.gnu.org/licenses/>.
+# along with EPlatform. If not, see <http://www.gnu.org/licenses/>.
 
 import wxversion
 wxversion.select( '2.8' )
@@ -46,10 +46,9 @@ class speller( wx.Frame ):
 	def initializeParameters(self):
 
                 
-                with open( './.pathToATPlatform' ,'r' ) as textFile:
-			self.pathToATPlatform = textFile.readline( )
+                self.pathToEPlatform = './'
 		    
-		with open( self.pathToATPlatform + 'spellerParameters', 'r' ) as parametersFile:
+		with open( self.pathToEPlatform + 'spellerParameters', 'r' ) as parametersFile:
 			for line in parametersFile:
 
 				if line[ :line.find('=')-1 ] == 'polishLettersColour':
@@ -67,7 +66,7 @@ class speller( wx.Frame ):
                                         self.polishLettersColour = 'blue'
 
 
-                with open( self.pathToATPlatform + 'parametersCW', 'r' ) as parametersFile:
+                with open( self.pathToEPlatform + 'parametersCW', 'r' ) as parametersFile:
 			for line in parametersFile:
 
                                 
@@ -93,7 +92,7 @@ class speller( wx.Frame ):
 					self.ileLuk=2
 
 		    
-		with open( self.pathToATPlatform + 'parameters', 'r' ) as parametersFile:
+		with open( self.pathToEPlatform + 'parameters', 'r' ) as parametersFile:
 			for line in parametersFile:
 
 				if line[ :line.find('=')-1 ] == 'timeGap':
@@ -149,12 +148,12 @@ class speller( wx.Frame ):
 
                 
                 mixer.init( )
-                self.typewriterKeySound = mixer.Sound( self.pathToATPlatform+'sounds/typewriter_key.wav' )
-                self.typewriterForwardSound = mixer.Sound( self.pathToATPlatform+'sounds/typewriter_forward.wav' )
-                self.typewriterSpaceSound = mixer.Sound( self.pathToATPlatform+'sounds/typewriter_space.wav' )
+                self.typewriterKeySound = mixer.Sound( self.pathToEPlatform+'sounds/typewriter_key.wav' )
+                self.typewriterForwardSound = mixer.Sound( self.pathToEPlatform+'sounds/typewriter_forward.wav' )
+                self.typewriterSpaceSound = mixer.Sound( self.pathToEPlatform+'sounds/typewriter_space.wav' )
 
                 
-                self.phones = glob.glob( self.pathToATPlatform+'sounds/phone/*' )
+                self.phones = glob.glob( self.pathToEPlatform+'sounds/phone/*' )
                 self.phoneLabels = [ item[ item.rfind( '/' )+1 : item.rfind( '_' ) ] for item in self.phones ]
                 self.sounds = [ mixer.Sound( self.sound ) for self.sound in self.phones ]
 	    
@@ -164,7 +163,7 @@ class speller( wx.Frame ):
         def initializeBitmaps(self):
 
         
-            self.path=self.pathToATPlatform+'multimedia/cwiczenia/'
+            self.path=self.pathToEPlatform+'multimedia/'
             labelFiles = [ file for file in [ self.path+'icons/speller/special_characters.png', self.path+'icons/speller/DELETE.png', self.path+'icons/speller/TRASH.png',   self.path+'icons/speller/CHECK.png',self.path+'icons/speller/ORISPEAK.png', self.path+'icons/speller/SPEAK.png', self.path+'icons/speller/exit.png', ] ]
             
             self.labelBitmaps = { }
@@ -254,7 +253,7 @@ class speller( wx.Frame ):
 		
 		ktore=[] #ktore litery wykropkowac
 
-		'''if len(self.slowo)==2:
+		if len(self.slowo)==2:
                         ktore=[1]
                 else:
                         while len(ktore)<self.ileLuk:
@@ -262,15 +261,8 @@ class speller( wx.Frame ):
                                 ktore=list(set(ktore))
 		slowo=list(self.slowo)
 		ktore=sorted(ktore)
-		self.samogloski=[]'''
+		self.samogloski=[]
 
-                slowo=list(self.slowo)
-                
-		if 'sa_p' in self.parent.folder or 'sp_p' in self.parent.folder:
-                        ktore.append(0)
-                else:
-                        ktore.append(len(self.slowo)-1)
-                        
 		for i in ktore:
                         slowo[i]='_'       
                 self.ktore=ktore
@@ -291,7 +283,6 @@ class speller( wx.Frame ):
                 soundIndex = self.phoneLabels.index( [ item for item in self.phoneLabels if litera.swapcase() in item ][ 0 ] )
 		sound = self.sounds[ soundIndex ]
 		sound.play( )
-                #sp.call(shlex.split('mpg321 -q "'+self.pathToATPlatform+'multimedia/cwiczenia/letters/'+litera+'.mp3"'))
                 self.parent.SetFocus()
 
 
@@ -403,16 +394,16 @@ class speller( wx.Frame ):
 				
 				elif label == 'ORISPEAK':
                                         self.parent.stoper2.Stop()
-                                        if str(self.parent.word)+'.ogg' not in os.listdir(self.pathToATPlatform+'multimedia/cwiczenia/spelling/'):
-                                                command='sox -m '+self.pathToATPlatform+'sounds/phone/'+list(self.parent.word)[0].swapcase()+'.wav'
+                                        if str(self.parent.word)+'.ogg' not in os.listdir(self.pathToEPlatform+'multimedia/spelling/'):
+                                                command='sox -m '+self.pathToEPlatform+'sounds/phone/'+list(self.parent.word)[0].swapcase()+'.wav'
                                                 ile=0
                                                 for l in list(self.parent.word)[1:]:
                                                         ile+=2
-                                                        command+=' "|sox '+self.pathToATPlatform+'sounds/phone/'+l.swapcase()+'.wav'+' -p pad '+str(ile)+'"'
-                                                command+=' '+self.pathToATPlatform+'multimedia/cwiczenia/spelling/'+self.parent.word+'.ogg'
+                                                        command+=' "|sox '+self.pathToEPlatform+'sounds/phone/'+l.swapcase()+'.wav'+' -p pad '+str(ile)+'"'
+                                                command+=' '+self.pathToEPlatform+'multimedia/spelling/'+self.parent.word+'.ogg'
                                                 wykonaj=sp.Popen(shlex.split(command))
                                         time.sleep(1.5)
-                                        do_literowania=mixer.Sound(self.pathToATPlatform+'multimedia/cwiczenia/spelling/'+self.parent.word+'.ogg')
+                                        do_literowania=mixer.Sound(self.pathToEPlatform+'multimedia/spelling/'+self.parent.word+'.ogg')
                                         do_literowania.play()
                                         self.parent.stoper4.Start((do_literowania.get_length()+0.5 )* 1000)
 

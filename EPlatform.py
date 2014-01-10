@@ -3,20 +3,20 @@
 
 
 
-# This file is part of AT-Platform.
+# This file is part of EPlatform.
 #
-# AT-Platform is free software: you can redistribute it and/or modify
+# EPlatform is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# AT-Platform is distributed in the hope that it will be useful,
+# EPlatform is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with AT-Platform. If not, see <http://www.gnu.org/licenses/>.
+# along with EPlatform. If not, see <http://www.gnu.org/licenses/>.
 
 
 
@@ -46,7 +46,7 @@ import check, spellerCW
 class cwiczenia(wx.Frame):
 	def __init__(self, parent, id):
 		
-		wx.Frame.__init__( self , parent , id , 'ATcwiczenia')
+		wx.Frame.__init__( self , parent , id , 'EPlatform')
 		self.Maximize( True )
 		self.winWidth, self.winHeight = wx.DisplaySize( )
 		self.parent=parent
@@ -58,10 +58,9 @@ class cwiczenia(wx.Frame):
 		self.Bind( wx.EVT_CLOSE , self.OnExit )
 
 	def initializeParameters(self):
-                with open( './.pathToATlatform' ,'r' ) as textFile:
-			self.pathToATPlatform = textFile.readline( )
+                self.pathToEPlatform = './'
 		    
-		with open( self.pathToATPlatform + 'parameters', 'r' ) as parametersFile:
+		with open( self.pathToEPlatform + 'parameters', 'r' ) as parametersFile:
 			for line in parametersFile:
 
 				if line[ :line.find('=')-1 ] == 'timeGap':
@@ -89,7 +88,7 @@ class cwiczenia(wx.Frame):
 					self.selectionColour = '#9EE4EF'
 
 		
-                with open( self.pathToATPlatform + 'parametersCW', 'r' ) as parametersFile:
+                with open( self.pathToEPlatform + 'parametersCW', 'r' ) as parametersFile:
 			for line in parametersFile:
 
                                 
@@ -120,8 +119,8 @@ class cwiczenia(wx.Frame):
 		self.PicNr=0
 		self.result=0
 		self.mouseCursor = PyMouse( )
-		#self.WordsList=os.listdir(self.pathToATPlatform+'multimedia/cwiczenia/pictures')
-		#shuffle(self.WordsList)
+		self.WordsList=os.listdir(self.pathToEPlatform+'multimedia/pictures')
+		shuffle(self.WordsList)
                 self.poczatek=True
 		self.numberOfPresses = 1
 		self.czyBack=False
@@ -181,7 +180,7 @@ class cwiczenia(wx.Frame):
                 if self.poczatek:
                         time.sleep(1)
                         self.stoper.Stop()
-                        mixer.music.load(self.pathToATPlatform+'multimedia/cwiczenia/voices/'+str(self.word)+'.ogg')
+                        mixer.music.load(self.pathToEPlatform+'multimedia/voices/'+str(self.word)+'.ogg')
                         mixer.music.play()
                         time.sleep(2)
                         self.stoper.Start(self.timeGap)
@@ -190,23 +189,11 @@ class cwiczenia(wx.Frame):
 	
 	def createGui(self):
 
-                if self.PicNr ==20:
+                if self.PicNr ==len(self.WordsList):
                         self.PicNr=0
-                if self.PicNr<5:
-                        self.folder='sa_p/'
-                        self.WordsList=os.listdir(self.pathToATPlatform+'multimedia/cwiczenia/pictures/'+self.folder)
-                elif self.PicNr >=5 and self.PicNr<10:
-                        self.folder='sa_k/'
-                        self.WordsList=os.listdir(self.pathToATPlatform+'multimedia/cwiczenia/pictures/'+self.folder)
-                elif self.PicNr >=10 and self.PicNr<15:
-                        self.folder='sp_p/'
-                        self.WordsList=os.listdir(self.pathToATPlatform+'multimedia/cwiczenia/pictures/'+self.folder)
-                else:
-                        self.folder='sp_k/'
-                        self.WordsList=os.listdir(self.pathToATPlatform+'multimedia/cwiczenia/pictures/'+self.folder)
-        	self.picture=self.WordsList[self.PicNr%5]
-		self.PicNr+=1
-		self.path=self.pathToATPlatform+'multimedia/cwiczenia/pictures/'+self.folder
+		self.picture=self.WordsList[self.PicNr]
+                self.PicNr+=1
+		self.path=self.pathToEPlatform+'multimedia/pictures/'
                 im=wx.ImageFromStream( open(self.path+self.picture, "rb"))
 		x=im.GetWidth()
 		y=im.GetHeight()
@@ -255,8 +242,8 @@ class cwiczenia(wx.Frame):
                         self.subSizerP.Add(res,0,wx.EXPAND)
                         self.subSizer0.Add( b, 0,wx.EXPAND )
 		        self.subSizer0.Add( be, 0,wx.EXPAND )
-                        self.icons=sorted(os.listdir(self.pathToATPlatform+'multimedia/cwiczenia/icons'))
-                        self.path=self.pathToATPlatform+'multimedia/cwiczenia/icons/'
+                        self.icons=sorted(os.listdir(self.pathToEPlatform+'multimedia/icons'))
+                        self.path=self.pathToEPlatform+'multimedia/icons/'
                         for idx,icon in enumerate(self.icons):
                                 if icon[0].isdigit():
                                         i=wx.BitmapFromImage( wx.ImageFromStream( open(self.path+icon, "rb")))
@@ -316,22 +303,22 @@ class cwiczenia(wx.Frame):
                         if 'speak' in self.icons[self.flaga-1]:
                         	time.sleep(1)
                         	self.stoper.Stop()
-                        	mixer.music.load(self.pathToATPlatform+'multimedia/cwiczenia/voices/'+str(self.word)+'.ogg')
+                        	mixer.music.load(self.pathToEPlatform+'multimedia/voices/'+str(self.word)+'.ogg')
                                 mixer.music.play()
                                 self.stoper4.Start(2000)
 
                         if 'literuj' in  self.icons[self.flaga-1]:
                                 self.stoper.Stop()
-                                if str(self.word)+'.ogg' not in os.listdir(self.pathToATPlatform+'multimedia/cwiczenia/spelling/'):        
-                                        command='sox -m '+self.pathToATPlatform+'sounds/phone/'+list(self.word)[0].swapcase()+'.wav'
+                                if str(self.word)+'.ogg' not in os.listdir(self.pathToEPlatform+'multimedia/spelling/'):        
+                                        command='sox -m '+self.pathToEPlatform+'sounds/phone/'+list(self.word)[0].swapcase()+'.wav'
                                         ile=0
                                         for l in list(self.word)[1:]:
                                                 ile+=2
-                                                command+=' "|sox '+self.pathToATPlatform+'sounds/phone/'+l.swapcase()+'.wav'+' -p pad '+str(ile)+'"'
-                                        command+=' '+self.pathToATPlatform+'multimedia/cwiczenia/spelling/'+self.word+'.ogg'
+                                                command+=' "|sox '+self.pathToEPlatform+'sounds/phone/'+l.swapcase()+'.wav'+' -p pad '+str(ile)+'"'
+                                        command+=' '+self.pathToEPlatform+'multimedia/spelling/'+self.word+'.ogg'
                                         wykonaj=sp.Popen(shlex.split(command))
                                 time.sleep(1.5)
-                                do_literowania=mixer.Sound(self.pathToATPlatform+'multimedia/cwiczenia/spelling/'+self.word+'.ogg')
+                                do_literowania=mixer.Sound(self.pathToEPlatform+'multimedia/spelling/'+self.word+'.ogg')
                                 do_literowania.play()
                                 self.stoper4.Start((do_literowania.get_length()+0.5 )* 1000)
                                 
