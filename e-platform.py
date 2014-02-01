@@ -38,7 +38,7 @@ import shlex
 import pygame
 from pygame import mixer
 
-import EGaps, EMistake, EPuzzle
+import EGaps, EMistake, EPuzzle, EMatch
 
 
 
@@ -141,7 +141,7 @@ class cwiczenia(wx.Frame):
 
                 self.numberOfPresses = 0
                 		
-		for i in range(3):
+		for i in range(4):
 			item = self.mainSizer.GetItem(i)
                         b = item.GetWindow()
                         b.SetBackgroundColour( self.backgroundColour )
@@ -152,7 +152,7 @@ class cwiczenia(wx.Frame):
                 b = item.GetWindow()
                 b.SetBackgroundColour( self.scanningColour )
                 b.SetFocus()
-                if self.flaga==2:
+                if self.flaga==3:
                         self.flaga=0
                 else:
                         self.flaga+=1
@@ -164,12 +164,12 @@ class cwiczenia(wx.Frame):
 
                 self. mainSizer = wx.BoxSizer( wx.VERTICAL )
 
-                nazwy=[u'UŁÓŻ PUZZLE',u'ZNAJDŹ BŁĄD', u'UZUPEŁNIJ LUKĘ']
-                kolory=['indian red', 'green', 'orange red' ]
+                nazwy=[u'UŁÓŻ PUZZLE',u'ZNAJDŹ BŁĄD', u'UZUPEŁNIJ LUKĘ',u'NAZWIJ OBRAZEK']
+                kolory=['indian red', 'green', 'orange red', 'cadet blue' ]
                         
-                for i in range(3):
+                for i in range(4):
                         b = bt.GenButton( self, -1, nazwy[i], name = nazwy[i])
-			b.SetFont( wx.Font( 80, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
+			b.SetFont( wx.Font( 75, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
 			b.SetBezelWidth( 3 )
 			b.SetBackgroundColour( self.backgroundColour )
 			b.SetForegroundColour(kolory[i])
@@ -199,7 +199,7 @@ class cwiczenia(wx.Frame):
                 
                         items=self.mainSizer.GetChildren()
                         if self.flaga ==0:
-                                b = items[2].GetWindow()
+                                b = items[3].GetWindow()
                         else:
                                 b = items[self.flaga-1].GetWindow()
                         b.SetBackgroundColour( self.selectionColour )
@@ -218,9 +218,15 @@ class cwiczenia(wx.Frame):
                                 self.MakeModal(False)
                                 self.Hide()
 
-                        if self.flaga-1 == -1 :
+                        if self.flaga-1 == 2 :
                 		self.stoper.Stop()
                 		EGaps.cwiczenia( self,id=-1).Show(True)
+                                self.MakeModal(False)
+                                self.Hide()
+
+                        if self.flaga-1 == -1 :
+                		self.stoper.Stop()
+                		EMatch.cwiczenia( self,id=-1).Show(True)
                                 self.MakeModal(False)
                                 self.Hide()
 
