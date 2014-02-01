@@ -215,7 +215,7 @@ class cwiczenia(wx.Frame):
 		be.Bind( wx.EVT_LEFT_DOWN, self.onPress )
 
 
-                res = bt.GenButton( self, -1, u'punkty:   '+str(self.result)+' / '+str(self.maxPoints))
+                res = bt.GenButton( self, -1, u'twój wynik:   '+str(self.result)+' / '+str(self.maxPoints))
 		res.SetFont( wx.Font(27, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False) )
 		res.SetBackgroundColour( self.backgroundColour)
 		res.Bind( wx.EVT_LEFT_DOWN, self.onPress )

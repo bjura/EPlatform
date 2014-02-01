@@ -76,7 +76,7 @@ class check(wx.Frame):
                 if self.parent.ownWord==self.parent.word:
                         self.parent.result+=1
                         if self.parent.result==self.parent.maxPoints:
-                                text=u'Brawo! \n \nZdobyłeś wszystkie punkty. \n \nKliknij.'
+                                text=u'Brawo! \n \nZdobyłeś wszystkie punkty. \n \nKliknij żeby odebrać nagrodę.'
                                 self.parent.mouseCursor.move( self.parent.winWidth - 12, self.parent.winHeight - 20 )
                                 self.parent.result=0
                                 kolor='dark slate blue'

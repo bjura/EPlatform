@@ -120,7 +120,7 @@ class speller( wx.Frame ):
 					self.selectionColour = '#9EE4EF'
                 
 
-                self.labels = [ 'a e b c d f g h i o j k l m n p u y r s t w z SPECIAL_CHARACTERS DELETE TRASH CHECK ORISPEAK SPEAK EXIT'.split( ), '1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 $ & . , ; : " ? ! @ # ( ) [ ] { } < > ~ DELETE TRASH CHECK ORISPEAK SPEAK EXIT'.split( ) ]
+                self.labels = [ 'a e b c d f g h i o j k l m n p u y r s t w z SPECIAL_CHARACTERS DELETE TRASH CHECK ORISPEAK SPEAK EXIT'.split( ), '. . . . . . . . . 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 DELETE TRASH CHECK ORISPEAK SPEAK EXIT'.split( ) ]
                 self.colouredLabels = [ 'a','e','i','o','u','y']
 
 
@@ -128,7 +128,7 @@ class speller( wx.Frame ):
                 self.voice=False
 		self.slowo=self.parent.word
 
-                self.numberOfRows = [ 4, 5 ]
+                self.numberOfRows = [ 4, 4 ]
                 self.numberOfColumns = [ 8, 9 ]
 				
                 self.flag = 'row'						
@@ -188,9 +188,7 @@ class speller( wx.Frame ):
 		self.textField.SetFont( wx.Font( 60, wx.SWISS, wx.NORMAL, wx.NORMAL ) )
 		self.parent.mainSizer.Add( self.textField, flag = wx.EXPAND | wx.TOP | wx.BOTTOM, border = 3 )
 
-                
 
-                #self.coTeraz = 'cyfry'  #zmienia sie na 'litery', gdy wybierze sie jakis numer
                 
                 self.slowoZBledem=''  #slowo z jedna bledna litera
                 ktora_zmienic=np.random.randint(0,len(self.slowo),1)[0]
@@ -208,7 +206,7 @@ class speller( wx.Frame ):
                 self.ileNumerow=len(self.slowo)   #ile liter ma dane slowo
                 
 
-                self.ktore=range(len(self.slowo))  #ktore indeksy itemow iterowac w cyfrach
+                self.ktore=range(9,len(self.slowo)+9)   #ktore indeksy itemow iterowac w cyfrach, plus 9 bo pierwszy rzad pusty
                 for i in range(self.numberOfRows[1]* self.numberOfColumns[1] -9  , self.numberOfRows[1]* self.numberOfColumns[1] -3  ):
                         self.ktore.append(i)
 		
@@ -218,7 +216,7 @@ class speller( wx.Frame ):
 
 		for index_1, item in enumerate( self.labels[ 0 ][ :-7 ] ):
 			b = bt.GenButton( self.parent, -1, item, name = item, size = ( 0.985*self.winWidth / self.numberOfColumns[ 0 ], 0.79 * self.winHeight / self.numberOfRows[ 0 ] ) )
-			b.SetFont( wx.Font( 40, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
+			b.SetFont( wx.Font( 60, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
 			b.SetBezelWidth( 3 )
 			b.SetBackgroundColour( self.backgroundColour )
 
@@ -252,15 +250,15 @@ class speller( wx.Frame ):
 
 		for index_1, item in enumerate( self.labels[ 1 ][ :-6 ] ):
                                 
-			b = bt.GenButton( self.parent, -1, item, name = item, size = ( 0.985*self.winWidth / self.numberOfColumns[ 1 ], 0.75 * self.winHeight / self.numberOfRows[ 1 ] ) )
-			b.SetFont( wx.Font( 40, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
+			b = bt.GenButton( self.parent, -1, item, name = item, size = ( 0.985*self.winWidth / self.numberOfColumns[ 1 ], 0.79 * self.winHeight / self.numberOfRows[ 1 ] ) )
+			b.SetFont( wx.Font( 55, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
 			b.SetBezelWidth( 3 )
-			if index_1 + 1 in range(1,self.ileNumerow+1):
-                                b.SetBackgroundColour( self.backgroundColour )
+			if index_1 in self.ktore:
                                 b.SetForegroundColour( self.textColour )
+                                b.SetBackgroundColour( self.backgroundColour )
                         else:
                                 b.SetBackgroundColour( 'grey' )
-                                b.SetForegroundColour( 'grey')
+                                b.SetForegroundColour( 'grey') #???????????
 			b.Bind( wx.EVT_LEFT_DOWN, self.onPress )
 			subSizer2.Add( b, ( index_1 / self.numberOfColumns[ 1 ], index_1 % self.numberOfColumns[ 1 ] ), wx.DefaultSpan, wx.EXPAND )
 
@@ -284,7 +282,6 @@ class speller( wx.Frame ):
 		self.parent.SetSizer( self.parent.mainSizer )
 		
 
-		#self.czyjuz=False
 		self.parent.Layout()
 
 	
@@ -497,7 +494,6 @@ class speller( wx.Frame ):
                                 self.parent.SetSizer( self.parent.mainSizer )
                                 self.parent.Layout()
                                 
-                #jesli cyfra to wymien litere i zmien plansze, jesli ikony to rob cos
                 
 		else:
 			event.Skip( )		
@@ -633,4 +629,3 @@ class speller( wx.Frame ):
                                         self.krokCyfry=0
                                 else:
                                         self.krokCyfry+=1
-                                pass#rob cos dla planszy z cyframi 

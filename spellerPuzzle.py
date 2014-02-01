@@ -231,7 +231,7 @@ class speller( wx.Frame ):
                         ile+=1
 
                         b = bt.GenButton( self.parent, -1, item  , name = item+str(ile), size = ( 0.985*self.winWidth / self.numberOfColumns[ 0 ], 0.79 * self.winHeight / self.numberOfRows[ 0 ] ) )
-			b.SetFont( wx.Font( 40, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
+			b.SetFont( wx.Font( 100, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
 			b.SetBezelWidth( 3 )
 
 
@@ -259,7 +259,7 @@ class speller( wx.Frame ):
 		for index_2, item in enumerate( self.labels[ 0 ][ -7 : ] ):
                         if item == 'SPECIAL_CHARACTERS':
                                 b = bt.GenButton( self.parent, -1, item, name = item, size = ( 0.985*self.winWidth / self.numberOfColumns[ 0 ], 0.79 * self.winHeight / self.numberOfRows[ 0 ] ) )
-                                b.SetFont( wx.Font( 40, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
+                                b.SetFont( wx.Font( 100, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
                                 b.SetForegroundColour( 'grey' )
                                 b.SetBackgroundColour( 'grey' )
 			else:
@@ -282,7 +282,7 @@ class speller( wx.Frame ):
 
 		for index_1, item in enumerate( self.labels[ 1 ][ :-6 ] ):
 			b = bt.GenButton( self.parent, -1, item, name = item, size = ( 0.985*self.winWidth / self.numberOfColumns[ 1 ], 0.75 * self.winHeight / self.numberOfRows[ 1 ] ) )
-			b.SetFont( wx.Font( 40, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
+			b.SetFont( wx.Font( 100, wx.FONTFAMILY_ROMAN, wx.FONTWEIGHT_LIGHT,  False ) )
 			b.SetBezelWidth( 3 )
 			b.SetBackgroundColour( self.backgroundColour )
 			b.SetForegroundColour( self.textColour )
