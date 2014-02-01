@@ -38,7 +38,7 @@ import shlex
 import pygame
 from pygame import mixer
 
-import check, spellerPuzzle
+import check, spellerMistake
 
 
 
@@ -46,7 +46,7 @@ import check, spellerPuzzle
 class cwiczenia(wx.Frame):
 	def __init__(self, parent, id):
 		
-		wx.Frame.__init__( self , parent , id , 'EPuzzle')
+		wx.Frame.__init__( self , parent , id , 'EMistake')
 		self.Maximize( True )
 		self.winWidth, self.winHeight = wx.DisplaySize( )
 		self.parent=parent
@@ -54,6 +54,7 @@ class cwiczenia(wx.Frame):
 		self.SetWindowStyle( style | wx.STAY_ON_TOP )
 		self.initializeParameters()
 		self.createGui()
+		self.parent=parent
 		self.initializeTimer()
 		self.Bind( wx.EVT_CLOSE , self.OnExit )
 
@@ -292,7 +293,7 @@ class cwiczenia(wx.Frame):
                 	if 'speller' in self.icons[self.flaga-1]:
                 		self.stoper.Stop()
                 		self.mainSizer.Clear(deleteWindows=True)
-                		self.spellerW = spellerPuzzle.speller( self)
+                		self.spellerW = spellerMistake.speller( self)
                 		self.Bind( wx.EVT_TIMER, self.spellerW.timerUpdate, self.stoper2,self.id2 )
                                 self.stoper2.Start( self.spellerW.timeGap )
                                 
