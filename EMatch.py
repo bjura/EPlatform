@@ -160,7 +160,6 @@ class cwiczenia(wx.Frame):
 
                 self.numberOfPresses = 0
 
-                #print self.flaga, len(self.wordSizer)
 		for i in range(5):
 			item = self.subSizer.GetChildren()
 			b=item[i].GetWindow()
@@ -172,40 +171,27 @@ class cwiczenia(wx.Frame):
                         b.SetBackgroundColour( self.backgroundColour )
                         b.SetFocus()
 
+
+                if self.poczatek:
+                        time.sleep(1)
+                        self.stoper.Stop()
+                        mixer.music.load(self.pathToEPlatform+'multimedia/voices/'+str(self.word)+'.ogg')
+                        mixer.music.play()
+                        time.sleep(2)
+                        self.stoper.Start(self.timeGap)
+                        self.poczatek=False
+
 				
                 if self.flaga >= self.numberOfExtraWords+1:
-                        if self.poczatek:
-                                time.sleep(1)
-                                self.stoper.Stop()
-                                mixer.music.load(self.pathToEPlatform+'multimedia/voices/'+str(self.word)+'.ogg')
-                                mixer.music.play()
-                                time.sleep(2)
-                                self.stoper.Start(self.timeGap)
-                                self.poczatek=False
                         item = self.subSizer.GetChildren()
                         b=item[self.flaga-self.numberOfExtraWords -1].GetWindow()
                         b.SetBackgroundColour( self.scanningColour )
                         b.SetFocus()
                 else:
-                        if self.poczatek:
-                                time.sleep(1)
-                                self.stoper.Stop()
-                                mixer.music.load(self.pathToEPlatform+'multimedia/voices/'+str(self.word)+'.ogg')
-                                mixer.music.play()
-                                time.sleep(2)
-                                self.stoper.Start(self.timeGap)
-                                self.poczatek=False
                         item = self.wordSizer.GetChildren()
                         b = item[self.flaga].GetWindow()
                         b.SetBackgroundColour( self.scanningColour )
                         b.SetFocus()
-                print self.flaga
-
-
-                #if self.ktorySizer=='opcje' and self.flaga==1:
-                #        self.ktorySizer='wyrazy'
-                #if self.ktorySizer=='wyrazy' and self.flaga==1:
-                #        self.ktorySizer='opcje'
 
                         
                 if self.flaga== 4 +self.numberOfExtraWords+1:
@@ -284,20 +270,21 @@ class cwiczenia(wx.Frame):
                         self.subSizer0.Remove(0)
                         self.subSizer0.Hide(0)
                         self.subSizer0.Remove(0)
-                        self.subSizer0.Add( b, 0,wx.EXPAND) #dodanie zdjecia
 		        self.subSizer0.Add( self.wordSizer, 0,wx.EXPAND ) #tutaj trzeba dodac caly zagniezdzony subsizer ze slowami
+                        self.subSizer0.Add( b, 0,wx.EXPAND) #dodanie zdjecia
+
                 except AttributeError:
                         if self.czyBack:
-                                self.SetBackgroundColour((220, 220, 220, 255))
                                 self.czyBack=False
+                                self.SetBackgroundColour((220, 220, 220, 255))
                         else:
                                 self. mainSizer = wx.BoxSizer( wx.VERTICAL )
                         self.subSizerP=wx.GridSizer(1,1,3,3)
                         self.subSizer0 = wx.GridSizer(1,2,3,3)
                         self.subSizer=wx.GridSizer(1,5,3,3)
                         self.subSizerP.Add(res,0,wx.EXPAND)
-                        self.subSizer0.Add( b, 0,wx.EXPAND )
 		        self.subSizer0.Add( self.wordSizer, 0,wx.EXPAND )
+                        self.subSizer0.Add( b, 0,wx.EXPAND )
                         self.icons=sorted(os.listdir(self.pathToEPlatform+'multimedia/icons'))
                         self.path=self.pathToEPlatform+'multimedia/icons/'
                         for idx,icon in enumerate(self.icons):
