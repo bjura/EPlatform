@@ -160,7 +160,7 @@ class cwiczenia(wx.Frame):
 
                 self.numberOfPresses = 0
 
-		for i in range(5):
+		'''for i in range(5):
 			item = self.subSizer.GetChildren()
 			b=item[i].GetWindow()
                         b.SetBackgroundColour( self.backgroundColour )
@@ -169,7 +169,27 @@ class cwiczenia(wx.Frame):
                         item = self.wordSizer.GetChildren()
 			b=item[i].GetWindow()
                         b.SetBackgroundColour( self.backgroundColour )
+                        b.SetFocus()'''
+
+                
+                if self.flaga<= self.numberOfExtraWords+1 and self.flaga>0:
+                        item = self.wordSizer.GetChildren()
+                        b = item[self.flaga-1].GetWindow()
+                        b.SetBackgroundColour( self.backgroundColour )
                         b.SetFocus()
+
+                else:
+                        if self.flaga==0:
+                                item = self.subSizer.GetChildren()
+                                b=item[len(item)-1].GetWindow()
+                                b.SetBackgroundColour( self.backgroundColour )
+                                b.SetFocus()
+                        else:
+                                item = self.subSizer.GetChildren()
+                                b=item[self.flaga-self.numberOfExtraWords -2].GetWindow()
+                                b.SetBackgroundColour( self.backgroundColour )
+                                b.SetFocus()
+
 
 
                 if self.poczatek:

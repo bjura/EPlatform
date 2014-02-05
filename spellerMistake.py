@@ -164,7 +164,7 @@ class speller( wx.Frame ):
 
         
             self.path=self.pathToEPlatform+'multimedia/'
-            labelFiles = [ file for file in [ self.path+'icons/speller/special_characters.png', self.path+'icons/speller/DELETE.png', self.path+'icons/speller/TRASH.png',   self.path+'icons/speller/CHECK.png',self.path+'icons/speller/ORISPEAK.png', self.path+'icons/speller/SPEAK.png', self.path+'icons/speller/exit.png', ] ]
+            labelFiles = [ file for file in [ self.path+'icons/speller/special_characters.png', self.path+'icons/speller/WSTECZ.png', self.path+'icons/speller/TRASH.png',   self.path+'icons/speller/CHECK.png',self.path+'icons/speller/ORISPEAK.png', self.path+'icons/speller/SPEAK.png', self.path+'icons/speller/exit.png', ] ]
             
             self.labelBitmaps = { }
 	    
@@ -371,6 +371,9 @@ class speller( wx.Frame ):
                                         self.textField.Remove(0,len(self.slowo))
                                         #self.textField.SetInsertionPoint(self.nr)
                                         self.textField.WriteText(self.slowoZBledem)
+                                        b.SetBackgroundColour( self.backgroundColour )
+                                        b.SetFocus( )
+                                        b.Update( )
                                         self.subSizerNumber=1
                                         items=self.subSizers[1].GetChildren()
                                         b=items[self.ktore[-2]].GetWindow()
@@ -452,7 +455,14 @@ class speller( wx.Frame ):
 				self.countColumns = 0
 				
                 elif self.numberOfPresses == 1 and self.subSizerNumber==1:
+
+                        item = self.subSizers[ 1 ].GetItem(self.ktore[ self.krokCyfry-1] )
+			b = item.GetWindow( )
+			b.SetBackgroundColour( self.selectionColour )
+			b.SetFocus( )
+			b.Update( )
                         
+
                         label=self.labels[1][self.ktore[self.krokCyfry-1]]
                         if label == 'ORISPEAK':
                                 self.parent.stoper2.Stop()
@@ -489,6 +499,9 @@ class speller( wx.Frame ):
                                 self.textField.SetInsertionPoint(nr-1)
                                 self.textField.WriteText('_')
                                 self.subSizerNumber=0
+                                b.SetBackgroundColour( self.backgroundColour )
+				b.SetFocus( )
+				b.Update( )
                                 self.parent.mainSizer.Show( item = self.subSizers[ 1 ], show = False, recursive = True )
                                 self.parent.mainSizer.Show( item = self.subSizers[ 0 ], show = True , recursive = True )
                                 self.parent.SetSizer( self.parent.mainSizer )
